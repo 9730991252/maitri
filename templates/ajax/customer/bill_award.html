@@ -1,0 +1,36 @@
+
+<style>
+    .bill_box{
+        background-color: rgb(255, 255, 255);
+        width: 400px;
+        border: 1px solid black;
+        padding: 5px;
+        padding-bottom: 0;
+        font-weight: 500;
+        p{
+            font-weight: 700;
+        }
+        .content{
+            display: flex;
+            justify-content: center;
+        }
+        .Congratulations{
+            display: flex;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: 700;
+            winner{
+                width: fit-content;
+                border-radius: 10px;
+                color: red;
+            }
+        }
+    }
+</style>
+<div class="container bill_box">
+    <div class="text-center">
+        <div class="content">Your Bill Amount Is - &nbsp; <p>{{winner.amount}}</p></div>
+        <div class="content">Your Bill Number Is - &nbsp; <p>{{winner.bill.bill_number}}</p></div>
+        <div class="Congratulations">Congratulations, You Have Won <winner>&nbsp;{{winner.item.item_name}}&nbsp;</winner> on your Bill !</div>
+    </div>
+</div>

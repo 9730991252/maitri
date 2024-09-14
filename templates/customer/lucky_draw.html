@@ -1,0 +1,42 @@
+{% extends 'home/base.html' %}
+{% block head %}
+{% endblock head %}
+{% block content %}
+{% include 'include/wheel/wheel_css.html' %}
+{% include 'include/alert.html' %}
+<div class="container">
+    <a href="/customer/customer_home/" class="btn btn-primary my-2">Back</a>
+</div>
+<input type="hidden" id="bill_id" value="{{bill.id}}">
+<div id="winner_result"></div>
+{% if bill.amount > 999 and bill.amount < 5000  %}
+    <!--* 1000 to 2000 *-->
+    {% include 'include/wheel/wheel_for_1_to_2.html' %}
+{% elif bill.amount > 2000 and bill.amount < 3000  %}
+    <!--* 2000 to 3000 *-->
+    {% include 'include/wheel/wheel_for_2_to_3.html' %}
+{% elif bill.amount > 3000 and bill.amount < 4000  %}
+    <!--* 3000 to 4000 *-->
+    {% include 'include/wheel/wheel_for_3_to_4.html' %}
+{% elif bill.amount > 4000 %}
+    <!--* 4000 to Infinity *-->
+    {% include 'include/wheel/wheel_for_4.html' %}
+{% endif %}
+
+<script>
+    function bill_award(item){
+        $.ajax({
+            url: "{% url 'bill_award' %}",
+            method: "GET",
+            data:{
+                item:item,
+                bill_id:document.getElementById('bill_id').value,
+                  },
+                success: function(res){
+                    $("#winner_result").html(res.t);
+                }
+        })
+    }
+</script>
+
+{% endblock content %}

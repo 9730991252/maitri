@@ -1,0 +1,7 @@
+
+<div class="container">
+    <a href="/customer/customer_home/" class="btn btn-primary my-2">Back</a>
+    <a href="/owner/owner_home/" class=" {% if request.path == '/owner/owner_home/' %}btn btn-warning{% else %}btn btn-primary{% endif %}">Home</a>
+    <a href="/owner/add_bill/" class=" {% if request.path == '/owner/add_bill/' %}btn btn-warning{% else %}btn btn-primary{% endif %}">Add Bill</a>
+    <a href="/owner/add_item/" class="{% if request.path == '/owner/add_item/' %}btn btn-warning{% else %}btn btn-primary{% endif %}">Add Item</a>
+</div

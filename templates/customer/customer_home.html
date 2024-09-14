@@ -1,0 +1,79 @@
+{% extends 'home/base.html' %}
+{% block head %}
+{% endblock head %}
+{% block content %}
+
+<style>
+    *{
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-style: none;
+        text-decoration: none;
+    }
+    .owner-btn{
+        position: absolute;
+        top:0;
+        right: 0;
+        margin-left: auto;
+        margin-top: 1px;
+        margin-right: 1px;
+    }
+    .box{
+        display: grid;
+        padding: 5px;
+        border-radius: 5px;
+        grid-template-columns: 3fr 3fr;
+        text-align: center;
+    }
+    .box_main{
+        border: 1px solid rgb(56, 56, 56);
+        margin-bottom: 20px;
+        padding-bottom: 5px;
+    }
+</style>
+{% include 'include/alert.html' %}
+<div class="containe" style="margin-top: 20px;"><div class="text-center"><span><b><i style="font-size: 25px;">Wellcome To - MAITRI COLLECTION</i></b></span></div></div>
+<a href="/owner/owner_login/" class="btn btn-primary btn-sm owner-btn">owner</a>
+
+<div class="container">
+    {% for b in bills %}
+    <div class="box_main">
+        <div class="box">
+            <div>Rs. {{b.amount}}</div>
+            <div><input id="input_bill_number{{b.id}}" type="text" oninput="check_bill_number('{{b.bill_number}}','{{b.id}}')" placeholder="Inter Bill Number" name="bill_number" required></div>
+        </div>
+        <div class="text-center"><a id="btn_bill_number{{b.id}}" style="display: none;" href="/customer/lucky_draw/{{b.id}}" class="btn btn-primary btn-sm" >Select</a></div>
+    </div>
+    {% endfor %}
+</div>
+
+<script>
+    function check_bill_number(bill_number, b_id){
+        input_bill_number = document.getElementById('input_bill_number'+b_id).value;
+        if( bill_number == input_bill_number ){
+            document.getElementById('btn_bill_number'+b_id).style.display = 'unset';
+        }
+        if( bill_number != input_bill_number ){
+            document.getElementById('btn_bill_number'+b_id).style.display = 'none';
+        }
+    }
+</script>
+
+{% endblock content %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

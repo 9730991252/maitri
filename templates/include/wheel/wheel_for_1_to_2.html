@@ -1,0 +1,118 @@
+{% load static %}
+<div class="winner_box">
+  <span id="winner">click the button for award</span>
+</div>
+
+
+<div class="chartCard">
+  <div class="chartBox">
+    <div>
+      <canvas id="myChart"></canvas>
+      <div id="spin-btn" class="spin-btn"><button onclick="rotation()">Click</button></div>
+      <div id="arrow_box">V</div>
+    </div>
+  </div>
+</div>
+
+<div style="display: none;">
+  <audio id="audio" controls>
+      <source src="{% static 'audio/1.mp3' %}" type="audio/mp3">
+</audio>
+</div>
+
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/chart.js/dist/chart.umd.min.js"></script>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-datalabels/2.1.0/chartjs-plugin-datalabels.min.js"></script> 
+ <script>
+ // setup 
+
+
+
+ const data = {
+   labels: ['cap', 'watchs','sent', 'pen', 'headphones' ],
+   datasets: [{
+     label: 'Weekly Sales',
+     data: [15, 7, 15 , 13, 5],
+     backgroundColor: [
+     "#b3b3b3",
+    "#523cfa",
+    "#ffbb00",
+    "#5bd985",
+    "#de4967",
+    "#b163da",
+    "#523cfa",
+    "#b3b3b3",
+    "#523cfa",
+    "#ffbb00",
+    "#5bd985",
+    "#de4967",
+     ],
+   }]
+ };
+
+
+ const config = {
+   type: 'pie',
+   data,
+   options: {
+     responsive: true,
+     animation: { duration: 10000 },
+     plugins: {
+       tooltip: false,
+       legend: {
+         display: false,
+       },
+       datalabels: {
+         rotation:0,
+         color: "#ffffff",
+         formatter: (_, context) => context.chart.data.labels[context.dataIndex],
+         font: { size: 15 },
+         //align: 'end',
+       },
+     }
+   },
+   plugins:[ChartDataLabels]
+ };
+
+ // render init block
+ const myChart = new Chart(document.getElementById('myChart'),config);
+
+ function rotation(){
+
+   myChart.config.data.datasets[0].rotation = Math.random() * 3333;
+   myChart.update();
+     document.getElementById('spin-btn').style.visibility = 'hidden';
+     document.getElementById('winner').innerText = 'Best Of Luck';
+
+     const angle = 180 / Math.PI;
+     setTimeout(() => {
+             myChart.getDatasetMeta(0).data.forEach((datapoint, index) => {
+                 const netStartAngle = datapoint.startAngle * angle % 360;
+                 const netEndAngle = datapoint.endAngle * angle % 360;
+                 if(180 > netStartAngle && 180 < netEndAngle) {
+                     //console.log(myChart.config.data.labels[index])
+                     //document.getElementById('winner').innerText = myChart.config.data.labels[index];
+                     value = myChart.config.data.labels[index];
+                     bill_award(value)
+                     success_audio()
+                     document.getElementById("winner").innerHTML = ``;
+                     //document.getElementById("winner").innerHTML = `<p>Congratulations, You Have Won ${value}  Of on your Bill ! </p>`;
+                     const msg = new SpeechSynthesisUtterance;
+                     msg.text=`Congratulations, You Have Won ${value} on your Bill !`;
+                     msg.voice=speechSynthesis.getVoices()[1];
+                     speechSynthesis.speak(msg);
+
+                 }
+             })
+           }, 10000)
+         }
+
+ 
+ function success_audio(){
+var audio = document.getElementById('audio');
+audio.play();
+}
+
+
+
+ </script>

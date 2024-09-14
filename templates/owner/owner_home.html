@@ -1,0 +1,50 @@
+{% extends 'home/base.html' %}
+{% block head %}
+{% endblock head %}
+{% block content %}
+{% load office_tag %}
+<style>
+    *{
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    .item_box{
+        font-size: small;
+    }
+
+</style>
+{% include 'include/alert.html' %}
+<div class="containe" style="margin-top: 1px;margin-left: 2px;width: fit-content; padding: 0px 5px;"><span><b><i style="font-size: 15px;">MAITRI COLLECTION</i></b></span></div>
+
+{% include 'include/owner/owner_menu.html' %}
+
+<div class="container">
+    <div class="text-center"><h5><b>Award List</b></h5></div>
+    <div class="text-center">
+        {% for i in item %}
+        <div class="item_box"><b>{{i.item_name}}</b>&nbsp;-&nbsp; {% Award_List i.id %}</div>
+        {% endfor %}
+    </div>
+</div>
+
+
+
+
+{% endblock content %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
