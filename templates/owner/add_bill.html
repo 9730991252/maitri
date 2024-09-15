@@ -56,7 +56,7 @@
                         {% csrf_token %}
                         <div class="mb-3">
                             <label for="bill_number" class="form-label">Bill Number</label>
-                            <input class="form-control" type="text" id="bill_number" name="bill_number" placeholder="Number" required>
+                            <input class="form-control" type="text" oninput="remove_space()"id="bill_number" name="bill_number" placeholder="Number" required>
                         </div>
                         <div class="mb-3">
                             <label for="bill_amount" class="form-label">Amount</label>
@@ -73,6 +73,13 @@
             </div>
         </div>
     </div>
+    <script>
+        function remove_space(){
+            var el = document.getElementById("bill_number").value;
+            val = el.replace(/\s/g, '')
+            document.getElementById("bill_number").value = val
+        }
+    </script>
     {% endblock content %}
     
     
