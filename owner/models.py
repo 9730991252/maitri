@@ -11,4 +11,5 @@ class Bill(models.Model):
 
 class Item(models.Model):
     item_name = models.CharField(max_length=100)
+    size = models.IntegerField(default=10,null=True)
     status = models.IntegerField(default=1)

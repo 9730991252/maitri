@@ -25,3 +25,22 @@ def bill_award(request):
         }
         t = render_to_string('ajax/customer/bill_award.html', context)
     return JsonResponse({'t': t})
+
+def item_list(request):
+    if request.method == 'GET':
+        i = Item.objects.values().all()
+        item = list(i)
+    return JsonResponse({'t': item})
+
+def size_edit(request):
+    if request.method == 'GET':
+        id = request.GET['id']
+        size_input = request.GET['size_input']
+        if id:
+            if size_input:
+                i = Item.objects.get(id=id)
+                if size_input != i.size:
+                    i.size = size_input
+                    i.save()
+
+    return JsonResponse({'t': 't'})

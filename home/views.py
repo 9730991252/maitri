@@ -1,8 +1,17 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages 
+from owner.models import *
 # Create your views here.
 def index(request):
     return render(request, 'home/index.html')
+
+def test(request):
+    item = Item.objects.all()
+    
+    context={
+        'item':item
+    }
+    return render(request, 'home/test.html', context)
 
 def login(request):
     if request.session.has_key('owner_mobile'):

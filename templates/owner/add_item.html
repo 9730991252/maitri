@@ -1,5 +1,6 @@
 {% extends 'home/base.html' %}
 {% block head %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 {% endblock head %}
 {% block content %}
 <style>
@@ -24,12 +25,14 @@
         <thead>
           <tr>
             <th scope="col">Name</th>
+            <th scope="col">Size</th>
           </tr>
         </thead>
         <tbody class="table-group-divider">
             {% for i in item %}
                 <tr>
                     <th scope="row">{{i.item_name}}</th>
+                    <th scope="row"><input type="number" value="{{i.size}}" id="size{{i.id}}" required>&nbsp;&nbsp;<button class="btn" style="color: green;"  onclick="size_edit('{{i.id}}')"><i class="fa-solid fa-check"></i></button></th>
                 </tr>
             {% endfor %}
         </tbody>
@@ -51,6 +54,10 @@
                             <input class="form-control" type="text" id="Item Name" name="item_name" placeholder="Item Name" required>
                         </div>
                         <div class="mb-3">
+                            <label for="size" class="form-label">size</label>
+                            <input class="form-control" type="text" id="size" name="size" placeholder="size" value="10" required>
+                        </div>
+                        <div class="mb-3">
                             <button class="btn btn-primary" type="submit" name="Add_iteml">Add</button>
                         </div>
                     </form>
@@ -61,6 +68,28 @@
             </div>
         </div>
     </div>
+
+
+
+<script>
+    function size_edit(id){
+        size_input = document.getElementById('size'+id).value;
+        $.ajax({
+            url: "{% url 'size_edit' %}",
+            method: "GET",
+            data:{
+                size_input:size_input,
+                id:id
+            },
+            success: function(res){
+                location.reload()
+            }
+          })
+    }
+</script>
+
+
+
     {% endblock content %}
     
     

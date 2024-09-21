@@ -27,11 +27,13 @@ def add_item(request):
     if request.session.has_key('owner_mobile'):
         if 'Add_iteml'in request.POST:
             item_name = request.POST.get('item_name').upper()
+            size = request.POST.get('size')
             if Item.objects.filter(item_name=item_name).exists():
                 messages.warning(request,"Item Allready Exits")
             else:
                 Item(
-                    item_name = item_name
+                    item_name = item_name,
+                    size=size,
                 ).save()
                 messages.success(request,"Item Added Success")
             return redirect('/owner/add_item/')
